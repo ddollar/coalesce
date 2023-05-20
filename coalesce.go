@@ -1,10 +1,12 @@
 package coalesce
 
-func Any[T comparable](values ...T) T {
+import "reflect"
+
+func Any[T any](values ...T) T {
 	var zero T
 
 	for _, value := range values {
-		if value != zero {
+		if !reflect.DeepEqual(value, zero) {
 			return value
 		}
 	}

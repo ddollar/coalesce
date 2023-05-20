@@ -24,16 +24,30 @@ func TestAny(t *testing.T) {
 	assert.Equal(t, "foo", coalesce.Any("", "foo", ""))
 	assert.Equal(t, "foo", coalesce.Any("", "foo", "bar"))
 
-	type s struct{ foo int }
-	assert.Equal(t, s{}, coalesce.Any(s{}))
-	assert.Equal(t, s{}, coalesce.Any(s{0}))
-	assert.Equal(t, s{}, coalesce.Any(s{}, s{}))
-	assert.Equal(t, s{3}, coalesce.Any(s{3}))
-	assert.Equal(t, s{3}, coalesce.Any(s{3}, s{}))
-	assert.Equal(t, s{3}, coalesce.Any(s{3}, s{}))
-	assert.Equal(t, s{3}, coalesce.Any(s{}, s{3}))
-	assert.Equal(t, s{3}, coalesce.Any(s{}, s{3}, s{}))
-	assert.Equal(t, s{3}, coalesce.Any(s{}, s{3}, s{5}))
+	type s1 struct{ foo int }
+	assert.Equal(t, s1{}, coalesce.Any(s1{}))
+	assert.Equal(t, s1{}, coalesce.Any(s1{0}))
+	assert.Equal(t, s1{}, coalesce.Any(s1{}, s1{}))
+	assert.Equal(t, s1{3}, coalesce.Any(s1{3}))
+	assert.Equal(t, s1{3}, coalesce.Any(s1{3}, s1{}))
+	assert.Equal(t, s1{3}, coalesce.Any(s1{3}, s1{}))
+	assert.Equal(t, s1{3}, coalesce.Any(s1{}, s1{3}))
+	assert.Equal(t, s1{3}, coalesce.Any(s1{}, s1{3}, s1{}))
+	assert.Equal(t, s1{3}, coalesce.Any(s1{}, s1{3}, s1{5}))
+
+	type s2 struct {
+		foo int
+		bar map[string]string
+	}
+	assert.Equal(t, s2{}, coalesce.Any(s2{}))
+	assert.Equal(t, s2{}, coalesce.Any(s2{0, nil}))
+	assert.Equal(t, s2{}, coalesce.Any(s2{}, s2{}))
+	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{3, map[string]string{"baz": "qux"}}))
+	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{3, map[string]string{"baz": "qux"}}, s2{}))
+	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{3, map[string]string{"baz": "qux"}}, s2{}))
+	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{}, s2{3, map[string]string{"baz": "qux"}}))
+	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{}, s2{3, map[string]string{"baz": "qux"}}, s2{}))
+	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{}, s2{3, map[string]string{"baz": "qux"}}, s2{5, nil}))
 }
 
 func TestString(t *testing.T) {
