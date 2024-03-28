@@ -50,6 +50,13 @@ func TestAny(t *testing.T) {
 	assert.Equal(t, s2{3, map[string]string{"baz": "qux"}}, coalesce.Any(s2{}, s2{3, map[string]string{"baz": "qux"}}, s2{5, nil}))
 }
 
+func TestPtr(t *testing.T) {
+	value := 12
+
+	assert.Equal(t, value, coalesce.Ptr(&value, 22))
+	assert.Equal(t, 22, coalesce.Ptr(nil, 22))
+}
+
 func TestString(t *testing.T) {
 	assert.Equal(t, "", coalesce.String(""))
 	assert.Equal(t, "", coalesce.String("", ""))

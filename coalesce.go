@@ -14,6 +14,14 @@ func Any[T any](values ...T) T {
 	return zero
 }
 
+func Ptr[T any](ptr *T, def T) T {
+	if ptr != nil {
+		return *ptr
+	} else {
+		return def
+	}
+}
+
 func String(ss ...string) string {
 	for _, s := range ss {
 		if s != "" {
