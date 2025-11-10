@@ -1,4 +1,4 @@
-module github.com/ddollar/coalesce
+module go.ddollar.dev/coalesce
 
 go 1.20
 

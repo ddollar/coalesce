@@ -3,7 +3,7 @@ package coalesce_test
 import (
 	"testing"
 
-	"github.com/ddollar/coalesce"
+	"go.ddollar.dev/coalesce"
 	"github.com/stretchr/testify/assert"
 )
 
